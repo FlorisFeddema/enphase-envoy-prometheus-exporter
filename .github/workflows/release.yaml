@@ -92,10 +92,11 @@ jobs:
             ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:$VERSION
           push: true
 
-      - name: Update version for chart
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq -i '.version = "${{ VERSION }}"' charts/enphase-envoy-prometheus-exporter/Chart.yaml
+      - name: Setup YQ
+        uses: chrisdickinson/setup-yq@latest
+
+      - name: Update chart version
+        run: VERSION=$VERSION yq -i '.version = env(VERSION)' charts/enphase-envoy-prometheus-exporter/Chart.yaml
 
       - name: Release chart
         uses: helm/chart-releaser-action@v1.4.1
