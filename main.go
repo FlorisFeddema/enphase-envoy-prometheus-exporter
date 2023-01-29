@@ -102,7 +102,10 @@ func main() {
 	exporter := NewExporter()
 	prometheus.MustRegister(exporter)
 
+	log.Println("⚙️ Exporter is ready to accept requests")
 	http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) { _, _ = w.Write([]byte("ok")) })
+
 	log.Fatal(http.ListenAndServe(":9000", nil))
 }
 
