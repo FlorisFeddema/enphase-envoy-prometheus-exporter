@@ -134,12 +134,12 @@ func (e *Exporter) Collect(metrics chan<- prometheus.Metric) {
 	)
 	metrics <- prometheus.MustNewConstMetric(
 		descProductionWatthoursToday,
-		prometheus.GaugeValue,
+		prometheus.CounterValue,
 		float64(data.ProductionType.WattHoursToday),
 	)
 	metrics <- prometheus.MustNewConstMetric(
 		descProductionWatthoursLifetime,
-		prometheus.GaugeValue,
+		prometheus.CounterValue,
 		float64(data.ProductionType.WattHoursLifetime),
 	)
 	metrics <- prometheus.MustNewConstMetric(
@@ -156,7 +156,7 @@ func (e *Exporter) Collect(metrics chan<- prometheus.Metric) {
 		)
 		metrics <- prometheus.MustNewConstMetric(
 			descProductionInverterMaxReportedWatts,
-			prometheus.GaugeValue,
+			prometheus.CounterValue,
 			float64(inverter.MaxReportWatts),
 			inverter.SerialNumber,
 		)
