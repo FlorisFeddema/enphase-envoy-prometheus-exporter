@@ -1,3 +1,5 @@
+name: Release application
+
 on:
   workflow_dispatch:
 
