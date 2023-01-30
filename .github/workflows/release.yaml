@@ -91,9 +91,8 @@ jobs:
           platforms: linux/amd64
           #          platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:${{ github.sha }}
+            ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:latest
           #            ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:${{ env.VERSION }}
-          #            ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:latest
           push: true
 
 #      - name: Release chart
