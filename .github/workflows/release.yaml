@@ -102,7 +102,7 @@ jobs:
         run: VERSION=$VERSION yq -i '.version = env(VERSION)' charts/enphase-envoy-prometheus-exporter/Chart.yaml
 
       - name: Release chart
-        uses: helm/chart-releaser-action@v1.4.1
+        uses: helm/chart-releaser-action@v1.5.0
         with:
           charts_dir: charts
         env:
