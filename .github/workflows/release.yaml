@@ -91,20 +91,14 @@ jobs:
           platforms: linux/amd64
           #          platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/enphase-envoy-prometheus-exporter:latest
-          #            ghcr.io/${{ github.repository_owner }}/enphase-envoy-prometheus-exporter:${{ github.sha }}
-          #            ghcr.io/${{ github.repository_owner }}/enphase-envoy-prometheus-exporter:${{ env.VERSION }}
+            ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:latest
+          #            ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:${{ github.sha }}
+          #            ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter:${{ env.VERSION }}
           push: true
 
-      - name: Setup YQ
-        uses: chrisdickinson/setup-yq@latest
-
-      - name: Update chart version
-        run: VERSION=$VERSION yq -i '.version = env(VERSION)' charts/enphase-envoy-prometheus-exporter/Chart.yaml
-
-      - name: Release chart
-        uses: helm/chart-releaser-action@v1.5.0
-        with:
-          charts_dir: charts
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+#      - name: Release chart
+#        uses: helm/chart-releaser-action@v1.5.0
+#        with:
+#          charts_dir: charts
+#        env:
+#          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
