@@ -104,7 +104,7 @@ jobs:
           message: 'Update Image Version to ${{ steps.image.outputs.version }}'
           commitChange: true
           branch: main
-          token: ${{ secrets.GITHUB_TOKEN }
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Release chart
 #        uses: helm/chart-releaser-action@v1.5.0
