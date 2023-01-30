@@ -3,9 +3,6 @@ name: Release application
 on:
   workflow_dispatch:
 
-env:
-  VERSION: 0.0.1
-
 jobs:
   build:
     name: Build
