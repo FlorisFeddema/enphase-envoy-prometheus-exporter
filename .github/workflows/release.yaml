@@ -49,7 +49,7 @@ jobs:
       - name: Run linter
         run: golint ./...
 
-  check-version:
+  checkVersion:
     name: CheckVersion
     runs-on: ubuntu-22.04
 
@@ -79,7 +79,7 @@ jobs:
     name: Release
     runs-on: ubuntu-22.04
     needs: [ build, checkVersion ]
-    if: ${{ needs.check-version.outputs.versionCheck == '>' }}
+    if: ${{ needs.checkVersion.outputs.versionCheck == '>' }}
 
     steps:
       - name: Check out code
