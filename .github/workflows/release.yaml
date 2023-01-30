@@ -101,10 +101,9 @@ jobs:
           valueFile: 'charts/enphase-envoy-prometheus-exporter/Chart.yaml'
           propertyPath: 'version'
           value: ${{ env.VERSION }}
-          message: 'Update Image Version to ${{ steps.image.outputs.version }}'
+          message: 'Update Image Version to ${{ env.VERSION }}'
           commitChange: true
           branch: main
-          token: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Release chart
 #        uses: helm/chart-releaser-action@v1.5.0
