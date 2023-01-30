@@ -49,16 +49,57 @@ jobs:
       - name: Run linter
         run: golint ./...
 
-  release:
-    name: Release
+  check-version:
+    name: CheckVersion
     runs-on: ubuntu-22.04
-    needs: build
+
+    outputs:
+      versionCheck: ${{ steps.version.outputs.comparison-result }}
 
     steps:
       - name: Check out code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Read version from Chart.yaml
+        id: read-version
+        uses: jbutcher5/read-yaml@main
+        with:
+          file: './charts/enphase-envoy-prometheus-exporter/Chart.yaml'
+          key-path: '["version"]'
+
+      - uses: madhead/semver-utils@latest
+        id: version
+        with:
+          version: ${{ env.VERSION }}
+          compare-to: ${{ steps.read-version.outputs.data }}
+
+  release:
+    name: Release
+    runs-on: ubuntu-22.04
+    needs: [ build, checkVersion ]
+    if: ${{ needs.check-version.outputs.versionCheck == '>' }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Read version from Chart.yaml
+        id: read-version
+        uses: jbutcher5/read-yaml@main
+        with:
+          file: './charts/enphase-envoy-prometheus-exporter/Chart.yaml'
+          key-path: '["version"]'
+
+      - uses: madhead/semver-utils@latest
+        id: version
+        with:
+          version: ${{ env.VERSION }}
+          compare-to: ${{ steps.read-version.outputs.data }}
+
 
       - name: Setup git config
         run: |
@@ -98,7 +139,7 @@ jobs:
       - name: Update version in Chart.yaml
         uses: fjogeleit/yaml-update-action@main
         with:
-          valueFile: 'charts/enphase-envoy-prometheus-exporter/Chart.yaml'
+          valueFile: './charts/enphase-envoy-prometheus-exporter/Chart.yaml'
           propertyPath: 'version'
           value: ${{ env.VERSION }}
           message: 'Update Image Version to ${{ env.VERSION }}'
