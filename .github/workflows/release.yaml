@@ -1,9 +1,11 @@
 name: Release application
-
 on:
   push:
     branches:
       - main
+
+env:
+  VERSION: 0.0.1
 
 jobs:
   build:
