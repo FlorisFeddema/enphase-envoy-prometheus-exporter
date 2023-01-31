@@ -1,61 +1,78 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "enphase-envoy-prometheus-exporter.fullname" . }}
+  name: enphase-envoy-prometheus-exporter
   labels:
-    {{- include "enphase-envoy-prometheus-exporter.labels" . | nindent 4 }}
+    helm.sh/chart: enphase-envoy-prometheus-exporter
+    app.kubernetes.io/name: enphase-envoy-prometheus-exporter
+    app.kubernetes.io/instance: enphase-envoy-prometheus-exporter
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+  namespace: {{ .Release.Namespace }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
-      {{- include "enphase-envoy-prometheus-exporter.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/name: enphase-envoy-prometheus-exporter
+      app.kubernetes.io/instance: enphase-envoy-prometheus-exporter
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "enphase-envoy-prometheus-exporter.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/name: enphase-envoy-prometheus-exporter
+        app.kubernetes.io/instance: enphase-envoy-prometheus-exporter
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "enphase-envoy-prometheus-exporter.serviceAccountName" . }}
+      serviceAccountName: enphase-envoy-prometheus-exporter
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        runAsUser: 1000
+        runAsGroup: 3000
+        runAsNonRoot: true
       containers:
-        - name: {{ .Chart.Name }}
+        - name: enphase-envoy-prometheus-exporter
+          env:
+            - name: EEPE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.existingSecret }}
+                  key: username
+                  optional: false
+            - name: EEPE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.existingSecret }}
+                  key: password
+                  optional: false
+            - name: EEPE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.existingSecret }}
+                  key: host
+                  optional: false
+            - name: EEPE_SERIALNUMBER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.existingSecret }}
+                  key: serialNumber
+                  optional: false
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.Version }}"
+          imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 9000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}

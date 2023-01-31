@@ -161,6 +161,7 @@ func (e *Exporter) Collect(metrics chan<- prometheus.Metric) {
 			inverter.SerialNumber,
 		)
 	}
+	log.Println("⚙️ Collected some metrics")
 }
 
 func fetchSystemData() envoyType {
