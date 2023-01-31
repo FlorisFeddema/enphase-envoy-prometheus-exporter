@@ -13,3 +13,5 @@ spec:
     app.kubernetes.io/instance: enphase-envoy-prometheus-exporter
   endpoints:
     - port: http
+      path: /metrics
+      interval: 1m
