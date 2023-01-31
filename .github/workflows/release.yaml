@@ -124,7 +124,7 @@ jobs:
       - name: Update version in Chart.yaml
         uses: fjogeleit/yaml-update-action@main
         with:
-          valueFile: './charts/enphase-envoy-prometheus-exporter/Chart.yaml'
+          valueFile: 'charts/enphase-envoy-prometheus-exporter/Chart.yaml'
           propertyPath: 'version'
           value: ${{ env.VERSION }}
           message: 'Update Image Version to ${{ env.VERSION }}'
