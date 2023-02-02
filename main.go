@@ -306,7 +306,7 @@ func getAuthToken(sessionId string, serialNumber string, username string) string
 	}
 	jsonData, _ := json.Marshal(data)
 
-	response, err := http.Post(enlightenTokenUrl, "application/json", bytes.NewBuffer(jsonData))
+	response, err := client.Post(enlightenTokenUrl, "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Fatal("💥 Could not get authentication token, serial number might be incorrect")
 	}
