@@ -280,7 +280,7 @@ func getSessionId(username string, password string) string {
 	}
 
 	data := url.Values{"user[email]": {username}, "user[password]": {password}}
-	response, err := http.PostForm(enlightenLoginUrl, data)
+	response, err := client.PostForm(enlightenLoginUrl, data)
 	if err != nil {
 		log.Println("💥 Login credentials are incorrect")
 		log.Fatal(err)
