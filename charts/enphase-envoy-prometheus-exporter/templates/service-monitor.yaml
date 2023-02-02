@@ -9,8 +9,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-    app.kubernetes.io/name: enphase-envoy-prometheus-exporter
-    app.kubernetes.io/instance: enphase-envoy-prometheus-exporter
+      app.kubernetes.io/name: enphase-envoy-prometheus-exporter
+      app.kubernetes.io/instance: enphase-envoy-prometheus-exporter
   endpoints:
     - port: http
       path: /metrics
