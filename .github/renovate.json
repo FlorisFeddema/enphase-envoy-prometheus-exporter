@@ -1,5 +1,5 @@
 {  
   "extends": [
     "github>florisfeddema/renovate-config:default.json"
-  ],
+  ]
 }
