@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   enphase-envoy-prometheus-exporter:
   - apiVersion: v2
+    created: "2023-05-08T20:52:22.391230762Z"
+    description: A Helm chart for the enphase-envoy-prometheus-exporter application
+    digest: 63f712ac3daced6a5d64ed4f3d13db82fd74cc7d79d083d171a8afe56ef90146
+    name: enphase-envoy-prometheus-exporter
+    type: application
+    urls:
+    - https://github.com/FlorisFeddema/enphase-envoy-prometheus-exporter/releases/download/enphase-envoy-prometheus-exporter-0.0.10/enphase-envoy-prometheus-exporter-0.0.10.tgz
+    version: 0.0.10
+  - apiVersion: v2
     created: "2023-03-27T20:38:29.482913857Z"
     description: A Helm chart for the enphase-envoy-prometheus-exporter application
     digest: 1ec5c9ac7ac3cdff1b5227269319bdc0da637d7637717efb84961228c3fe45cd
@@ -64,4 +73,4 @@ entries:
     urls:
     - https://github.com/FlorisFeddema/enphase-envoy-prometheus-exporter/releases/download/enphase-envoy-prometheus-exporter-0.0.3/enphase-envoy-prometheus-exporter-0.0.3.tgz
     version: 0.0.3
-generated: "2023-03-27T20:38:29.482966657Z"
+generated: "2023-05-08T20:52:22.391578267Z"
