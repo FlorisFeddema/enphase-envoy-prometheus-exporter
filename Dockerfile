@@ -1,17 +1,16 @@
 FROM golang:1.20 AS build
 
-WORKDIR /build
+ARG TARGETOS
+ARG TARGETARCH
 
-ENV CGO_ENABLED=0
-ENV GOOS=linux
-ENV GOARCH=amd64
+WORKDIR /build
 
 COPY go.mod go.sum ./
 RUN go mod download
 RUN go mod verify
 
 COPY . .
-RUN go build -o app
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o app
 
 FROM scratch as runtime
 COPY --from=build /build/app /app
