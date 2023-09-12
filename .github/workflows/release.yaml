@@ -95,7 +95,7 @@ jobs:
           git config user.email "admin@feddema.dev"
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: linux/amd64,linux/arm64
 
