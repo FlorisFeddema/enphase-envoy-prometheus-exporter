@@ -1,4 +1,5 @@
 replicaCount: 1
+revisionHistoryLimit: 0
 
 image:
   repository: ghcr.io/florisfeddema/enphase-envoy-prometheus-exporter
