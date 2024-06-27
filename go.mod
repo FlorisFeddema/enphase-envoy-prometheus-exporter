@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/go-co-op/gocron v1.37.0
-	github.com/go-co-op/gocron/v2 v2.7.0
+	github.com/go-co-op/gocron/v2 v2.7.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/prometheus/client_golang v1.19.1
 )
