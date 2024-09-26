@@ -10,7 +10,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Check out code
@@ -53,7 +53,7 @@ jobs:
 
   checkVersion:
     name: CheckVersion
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     outputs:
       versionCheck: ${{ steps.version.outputs.comparison-result }}
@@ -79,7 +79,7 @@ jobs:
 
   release:
     name: Release
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [ build, checkVersion ]
     if: ${{ needs.checkVersion.outputs.versionCheck == '>' }}
 
